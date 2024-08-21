@@ -6,6 +6,8 @@ function HomeIndex() {
     const width = window.innerWidth, height = window.innerHeight 
     //场景
     const scene = new THREE.Scene()
+    //添加背景颜色
+    scene.background = new THREE.Color(0x666666)
     //相机
     const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000)
     //渲染器
@@ -13,18 +15,24 @@ function HomeIndex() {
     renderer.setSize(width, height)
     //几何体
     const geometry = new THREE.BoxGeometry(1, 1, 1)
+    //创建纹理
+    const texture = new THREE.TextureLoader().load('https://threejs.org/examples/textures/crate.gif')
+    
     //材质
-    // const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 })
+    const material = new THREE.MeshBasicMaterial({ 
+      // color: 0x00ff00,
+      map: texture,
+    })
     // 创建6种不同颜色的材质
-    const materials = [
-      new THREE.MeshBasicMaterial({ color: 0xff0000 }), // 红色
-      new THREE.MeshBasicMaterial({ color: 0x00ff00 }), // 绿色
-      new THREE.MeshBasicMaterial({ color: 0x0000ff }), // 蓝色
-      new THREE.MeshBasicMaterial({ color: 0xffff00 }), // 黄色
-      new THREE.MeshBasicMaterial({ color: 0x00ffff }), // 青色
-      new THREE.MeshBasicMaterial({ color: 0xff00ff })  // 紫色
-    ];
-    const cube = new THREE.Mesh(geometry, materials)
+    // const materials = [
+    //   new THREE.MeshBasicMaterial({ color: 0xff0000 }), // 红色
+    //   new THREE.MeshBasicMaterial({ color: 0x00ff00 }), // 绿色
+    //   new THREE.MeshBasicMaterial({ color: 0x0000ff }), // 蓝色
+    //   new THREE.MeshBasicMaterial({ color: 0xffff00 }), // 黄色
+    //   new THREE.MeshBasicMaterial({ color: 0x00ffff }), // 青色
+    //   new THREE.MeshBasicMaterial({ color: 0xff00ff })  // 紫色
+    // ];
+    const cube = new THREE.Mesh(geometry, material)
     cube.position.y = 2;
     scene.add(cube)
     camera.position.z = 5

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-function GuiIndex() {
+function UVIndex() {
   const init = () => {
     const width = window.innerWidth, height = window.innerHeight 
     //场景
@@ -77,4 +77,4 @@ function GuiIndex() {
   )
 }
 
-export default GuiIndex;
+export default UVIndex;
