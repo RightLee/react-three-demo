@@ -14,37 +14,29 @@ function UVIndex() {
     const renderer = new THREE.WebGLRenderer()
     renderer.setSize(width, height)
     //几何体
-    const geometry = new THREE.BufferGeometry();
-    // 创建一个简单的矩形. 在这里我们左上和右下顶点被复制了两次。
-    // 因为在两个三角面片里，这两个顶点都需要被用到。
-    const vertices = new Float32Array( [
-      -1.0, -1.0,  1.0,
-      1.0, -1.0,  1.0,
-      1.0,  1.0,  1.0,
-      // 1.0,  1.0,  1.0,
-      -1.0,  1.0,  1.0,
-      // -1.0, -1.0,  1.0
-    ] );
+    const geometry = new THREE.PlaneGeometry(1,1)
+    
+    //纹理
+    const texture = new THREE.TextureLoader().load('textures/texture.jpg')
 
-    // itemSize = 3 因为每个顶点都是一个三元组。
-    geometry.setAttribute( 'position', new THREE.BufferAttribute( vertices, 3 ) );
-
-    //需要确认几何体的顶点
-    //利用索引来确定每个三角面片的顶点
-    const indexs = new Uint16Array( [
-      0, 1, 2, 2, 3, 0,
+    //uv定义范围(左上 右上 左下 右下)
+    const uv = new Float32Array([
+      0.5,1,
+      1,1,
+      0.5,0.5,
+      1,0.5,
     ])
-    geometry.index = new THREE.BufferAttribute( indexs, 1 );
 
+    geometry.attributes.uv = new THREE.BufferAttribute(uv,2)
     const material = new THREE.MeshBasicMaterial( { 
-      color: 0xff0000,
+      // color: 0xff0000,
+      map: texture,
       side: THREE.DoubleSide,
-      wireframe: true,
     } );
-    const mesh = new THREE.Mesh( geometry, material );
+    const cube = new THREE.Mesh( geometry, material );
     
     //网格
-    scene.add(mesh)
+    scene.add(cube)
     camera.position.z = 5
     //坐标轴
     const axesHelper = new THREE.AxesHelper(5)
