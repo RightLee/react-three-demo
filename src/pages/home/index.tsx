@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 function HomeIndex() {
   const init = () => {
-    const width = window.innerWidth, height = window.innerHeight 
+    const width = window.innerWidth, height = window.innerHeight
     //场景
     const scene = new THREE.Scene()
     //添加背景颜色
@@ -13,31 +14,29 @@ function HomeIndex() {
     //渲染器
     const renderer = new THREE.WebGLRenderer()
     renderer.setSize(width, height)
-    //几何体
-    const geometry = new THREE.BoxGeometry(1, 1, 1)
-    //创建纹理
-    const texture = new THREE.TextureLoader().load('https://threejs.org/examples/textures/crate.gif')
-    
-    //材质
-    const material = new THREE.MeshBasicMaterial({ 
-      // color: 0x00ff00,
-      map: texture,
-    })
-    // 创建6种不同颜色的材质
-    // const materials = [
-    //   new THREE.MeshBasicMaterial({ color: 0xff0000 }), // 红色
-    //   new THREE.MeshBasicMaterial({ color: 0x00ff00 }), // 绿色
-    //   new THREE.MeshBasicMaterial({ color: 0x0000ff }), // 蓝色
-    //   new THREE.MeshBasicMaterial({ color: 0xffff00 }), // 黄色
-    //   new THREE.MeshBasicMaterial({ color: 0x00ffff }), // 青色
-    //   new THREE.MeshBasicMaterial({ color: 0xff00ff })  // 紫色
-    // ];
-    const cube = new THREE.Mesh(geometry, material)
-    cube.position.y = 2;
-    scene.add(cube)
-    camera.position.z = 5
+
+    //创建GLTF实例
+    const loader = new GLTFLoader();
+    //加载模型
+    loader.load('../../../public/qqq.glb', function (glb) {
+      scene.add(glb.scene)
+    });
+
+    //添加环境光
+    const ambientLight = new THREE.AmbientLight(0x404040, 1)
+    scene.add(ambientLight)
+
+    //添加平行光
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 3)
+    directionalLight.position.set(11.2, 11.2, 7.4)
+    scene.add(directionalLight)
+
+    camera.position.x = 10
+    camera.position.y = 10
+    camera.position.z = 10
     //网格线
     const gridHelper = new THREE.GridHelper(20, 20)
+    gridHelper.position.y = -1
     scene.add(gridHelper)
     //相机轨道
     const orbitControls = new OrbitControls(camera, renderer.domElement)
@@ -52,18 +51,26 @@ function HomeIndex() {
     //渲染方法
     const animate = () => {
       requestAnimationFrame(animate)
-      cube.rotation.x += 0.01
-      cube.rotation.y += 0.01
       renderer.render(scene, camera)
     }
     animate()
     document.getElementById('container')?.appendChild(renderer.domElement)
+    //监听窗口变化
+    window.addEventListener('resize', () => {
+      renderer.setSize(window.innerWidth, window.innerHeight)
+      camera.aspect = window.innerWidth / window.innerHeight
+      camera.updateProjectionMatrix()
+    })
+    //全屏方法
+    // doucument.body.requestFullscreen()
+    //退出全屏
+    // document.exitFullscreen()
   }
 
   useEffect(() => {
     init()
-  },[])
-  
+  }, [])
+
 
   return (
     <>

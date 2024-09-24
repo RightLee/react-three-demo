@@ -17,10 +17,14 @@
 
 .layout-box .layout-header {
   position: absolute;
+  z-index: 100;
   top: 0;
   left: 0;
   right: 0;
   height: 60px;
+}
+.layout-box .layout-header-second{
+  top: 60px;
 }
 
 .layout-box nav{
@@ -55,8 +59,19 @@
   color:#fff;
 }
 
+.layout-box .layout-route-box li .active{
+  color: blue;
+}
+
 .layout-box .layout-route-box li a:hover{
   color: red;
+}
+
+/*车模型行样式*/
+.car-config{
+  position: absolute;
+  top: 0;
+  right: 20px;
 }
 
 

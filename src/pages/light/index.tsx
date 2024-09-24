@@ -3,7 +3,7 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 const LightIndex = () => {
     const init = () => {
-        const width = window.innerWidth, height = window.innerHeight 
+        const width = window.innerWidth, height = window.innerHeight
         //场景
         const scene = new THREE.Scene()
         //添加背景颜色
@@ -15,7 +15,7 @@ const LightIndex = () => {
         renderer.setSize(width, height)
         renderer.shadowMap.enabled = true
         //创建几何体
-        const geometry = new THREE.BoxGeometry(1,1,1)
+        const geometry = new THREE.BoxGeometry(1, 1, 1)
         //创建材质
         const material = new THREE.MeshPhongMaterial({
             color: 0x00ff00,
@@ -23,7 +23,7 @@ const LightIndex = () => {
         })
         //网格
         const cube = new THREE.Mesh(geometry, material)
-        cube.position.set(0,0.5,0)
+        cube.position.set(0, 0.5, 0)
 
         //物体接受光源
         cube.receiveShadow = true
@@ -33,18 +33,18 @@ const LightIndex = () => {
 
         //添加光源
         //环境光
-        const light = new THREE.AmbientLight(0xffffff,1)
+        const light = new THREE.AmbientLight(0xffffff, 1)
         scene.add(light)
         //点光源
-        const pointlight = new THREE.PointLight(0xffffff,100,100)
-        pointlight.position.set(5,3,5)
+        const pointlight = new THREE.PointLight(0xffffff, 100, 100)
+        pointlight.position.set(5, 3, 5)
         pointlight.castShadow = true
         scene.add(pointlight)
 
         //创建地面
         const meshfloor = new THREE.Mesh(
-            new THREE.PlaneGeometry(10,10),
-            new THREE.MeshPhongMaterial({color: 0x0099ff})
+            new THREE.PlaneGeometry(10, 10),
+            new THREE.MeshPhongMaterial({ color: 0x0099ff })
         )
         meshfloor.rotation.x -= Math.PI / 2
         //物体接受光源
@@ -60,7 +60,7 @@ const LightIndex = () => {
         orbitControls.enableDamping = true
         orbitControls.dampingFactor = 0.2
         orbitControls.enableZoom = true
-        
+
         //渲染方法
         const animate = () => {
             requestAnimationFrame(animate)
@@ -68,10 +68,16 @@ const LightIndex = () => {
         }
         animate()
         document.getElementById('container')?.appendChild(renderer.domElement)
+        //监听窗口变化
+        window.addEventListener('resize', () => {
+            renderer.setSize(window.innerWidth, window.innerHeight)
+            camera.aspect = window.innerWidth / window.innerHeight
+            camera.updateProjectionMatrix()
+        })
     }
     useEffect(() => {
         init()
-    },[])
+    }, [])
     return (
         <div id="container"></div>
     )
