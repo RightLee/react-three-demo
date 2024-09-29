@@ -8,6 +8,7 @@ import GuiIndex from './pages/gui/index'
 import ExampleIndex from './pages/example/index'
 import SkyBox from './pages/example/skybox/index'
 import CarIndex from './pages/example/car/index'
+import CardIndex from './pages/example/card/index'
 import BuildingIndex from './pages/example/building/index'
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="example" element={<ExampleIndex />} >
             <Route index element={<SkyBox />} />
             <Route path="car" element={<CarIndex />} />
+            <Route path="card" element={<CardIndex />} />
             <Route path="building" element={<BuildingIndex />} />
           </Route>
         </Route>

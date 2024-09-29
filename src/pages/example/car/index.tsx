@@ -26,6 +26,9 @@ function CarIndex() {
         orbitControls.enableZoom = true
         //网格线
         const gridHelper = new THREE.GridHelper(20, 20)
+        gridHelper.material.opacity = 0.3
+        gridHelper.material.transparent = true
+
         scene.add(gridHelper)
 
         let wheels = []

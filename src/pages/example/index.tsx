@@ -15,6 +15,9 @@ function ExampleIndex() {
                             <Link to="/example/car" className={currentPath === "/example/car" ? "active" : ""}>车</Link>
                         </li>
                         <li>
+                            <Link to="/example/card" className={currentPath === "/example/card" ? "active" : ""}>贺卡</Link>
+                        </li>
+                        <li>
                             <Link to="/example/building" className={currentPath === "/example/building" ? "active" : ""}>建筑物</Link>
                         </li>
                     </ul>
